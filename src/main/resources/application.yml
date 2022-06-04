@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    username: <username>
+    password: <password>
+    url: <url>
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
