@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  edms_db:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=<password>
+      - MYSQL_DATABASE=<database>
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - edms_db
+    build: .
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - MYSQL_HOST=<host>
+      - MYSQL_PORT=<port>
+      - MYSQL_PASSWORD=<password>
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+  edms_ui:
+    image: edms_ui
+    depends_on:
+      - app
+    ports:
+      - "8080:8080"
+    environment:
+      - VUE_APP_API_BASE_URL=<url>
+volumes:
+  db:

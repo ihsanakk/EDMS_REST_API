@@ -2,9 +2,9 @@ server:
   port: 8081
 spring:
   datasource:
-    username: <username>
-    password: <password>
-    url: <url>
+    username: ${MYSQL_USER:<user>}
+    password: ${MYSQL_PASSWORD:<password>}
+    url: jdbc:mysql://${MYSQL_HOST:<host>}:${MYSQL_PORT:<port>}/<db>
   jpa:
     hibernate:
       ddl-auto: update
